@@ -1,0 +1,52 @@
+﻿syntax = "proto3";
+package MiniPerson.Grpc.v1;
+
+option csharp_namespace = "MiniPerson.Grpc.Protos.v1";
+import "google/protobuf/empty.proto";
+
+service PersonService{
+	rpc GetAll(google.protobuf.Empty) returns (stream PersonReply);
+	rpc GetById(PersonByIdRequest) returns (PersonReply);
+	rpc CreatePerson(stream PersonCreateRequest) returns (stream PersonCreateReply);
+	rpc DeletePerson(PersonByIdRequest) returns (PersonDeleteReply);
+	rpc UpdatePerson(PersonUpdateRequest) returns (PersonUpdateReply);
+}
+
+message PersonByIdRequest{
+		int64 ID=1;
+}
+
+message PersonReply{
+	int64 Id=1;
+	string FirstName = 2;
+	string LastName = 3;
+	string NationCode = 4;
+	string BirthDate = 5;
+}
+
+message PersonCreateRequest{
+	string FirstName = 1;
+	string LastName = 2;
+	string NationCode = 3;
+	string BirthDate = 4;
+}
+message PersonCreateReply{
+    int64 Id=1;
+}
+message PersonDeleteReply
+{
+	bool Success=1;
+}
+
+
+message PersonUpdateRequest{
+	int64 Id=1;
+	string FirstName = 2;
+	string LastName = 3;
+	string NationCode = 4;
+	string BirthDate = 5;
+}
+message PersonUpdateReply
+{
+	int64 Id=1;
+}
